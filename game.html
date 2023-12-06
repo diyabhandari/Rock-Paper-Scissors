@@ -23,8 +23,19 @@
     ">
       Scissors
     </button>
+    <button onclick = "
+      score.losses=0;
+      score.wins=0;
+      score.ties=0;
+    ">
+      Reset Score
+    </button>
     <script>
-      
+      const score = { //OBJECT //global so that it remembers previous data
+        wins: 0,
+        losses: 0,
+        ties: 0
+      }
       function decideMove(){
         let computerMove ='unknown';
         const randomNum = Math.random(); 
@@ -50,7 +61,14 @@
         else if((computerMoveResult === 'paper' && playerMove === 'rock')||(computerMoveResult === 'rock' && playerMove === 'scissors')||(computerMoveResult === 'scissors' && playerMove === 'paper')){
           result = 'you lose';
         }
-        alert(`Computer chose : ${computerMoveResult} \nResult : ${result}`);
+        if(result === 'you win')
+          score.wins++;
+        else if(result === 'you lose')
+          score.losses++;
+        else{
+          score.ties++;
+        }
+        alert(`Computer chose : ${computerMoveResult} \nResult : ${result} \nWins: ${score.wins} Losses: ${score.losses} Ties: ${score.ties} `);
       }
     </script>
   </body>
