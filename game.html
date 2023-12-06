@@ -31,11 +31,12 @@
       Reset Score
     </button>
     <script>
-      const score = { //OBJECT //global so that it remembers previous data
+      /*const score = { //OBJECT //global so that it remembers previous data
         wins: 0,
         losses: 0,
         ties: 0
-      }
+      }*/
+      score = JSON.parse(localStorage.getItem('score')); //its properties  are created from function play
       function decideMove(){
         let computerMove ='unknown';
         const randomNum = Math.random(); 
@@ -54,20 +55,18 @@
         let result = 'unknown';
         if(computerMoveResult === playerMove){
           result = 'tie';
+          score.ties++;
         }
         else if((computerMoveResult === 'rock' && playerMove === 'paper')||(computerMoveResult === 'scissors' && playerMove === 'rock')||(computerMoveResult === 'paper' && playerMove === 'scissors')){
           result = 'you win';
+          score.wins++;
         }
         else if((computerMoveResult === 'paper' && playerMove === 'rock')||(computerMoveResult === 'rock' && playerMove === 'scissors')||(computerMoveResult === 'scissors' && playerMove === 'paper')){
           result = 'you lose';
-        }
-        if(result === 'you win')
-          score.wins++;
-        else if(result === 'you lose')
           score.losses++;
-        else{
-          score.ties++;
         }
+        localStorage.setItem('score',JSON.stringify(score)); //into 
+        
         alert(`Computer chose : ${computerMoveResult} \nResult : ${result} \nWins: ${score.wins} Losses: ${score.losses} Ties: ${score.ties} `);
       }
     </script>
