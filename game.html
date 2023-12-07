@@ -24,9 +24,14 @@
       Scissors
     </button>
     <button onclick = "
-      score.losses=0;
-      score.wins=0;
-      score.ties=0;
+      //this reset score only resets current page's score, it remains in local storage and when we refresh our old score comes back cuz it was stored
+      score = {
+        losses: 0,
+        wins: 0,
+        ties: 0
+      };
+      //we need to remove the scores from local storage too
+      localStorage.removeItem('score');
     ">
       Reset Score
     </button>
@@ -36,7 +41,17 @@
         losses: 0,
         ties: 0
       }*/
-      score = JSON.parse(localStorage.getItem('score')); //its properties  are created from function play
+      //default operator, if first comes null other is run
+      let score = JSON.parse(localStorage.getItem('score')) || { //ANOTHER WAY OF ASSIGNING VALUES
+        wins:0,
+        losses:0,
+        ties:0
+      }; //its properties  are created from function play
+      /*if(!score){ //score null
+        score.wins=0;
+        score.losses=0;
+        score.ties=0;
+      } //default value for score, cuz if we try to get .wins from null itll give an error*/
       function decideMove(){
         let computerMove ='unknown';
         const randomNum = Math.random(); 
