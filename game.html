@@ -23,7 +23,10 @@
     ">
       Scissors
     </button>
-    <button onclick = "
+    <p class = "js-result"></p>
+    <p class = "js-move"></p>
+    <p class = "js-score" >Wins: 0, Losses: 0, Ties: 0</p>
+    <button  onclick = "
       //this reset score only resets current page's score, it remains in local storage and when we refresh our old score comes back cuz it was stored
       score = {
         losses: 0,
@@ -32,10 +35,13 @@
       };
       //we need to remove the scores from local storage too
       localStorage.removeItem('score');
+      resetScore();
     ">
       Reset Score
     </button>
+    
     <script>
+
       /*const score = { //OBJECT //global so that it remembers previous data
         wins: 0,
         losses: 0,
@@ -52,6 +58,7 @@
         score.losses=0;
         score.ties=0;
       } //default value for score, cuz if we try to get .wins from null itll give an error*/
+      let scoreElement = document.querySelector('.js-score');
       function decideMove(){
         let computerMove ='unknown';
         const randomNum = Math.random(); 
@@ -69,21 +76,39 @@
       function play(computerMoveResult,playerMove){
         let result = 'unknown';
         if(computerMoveResult === playerMove){
-          result = 'tie';
+          result = 'Tie';
           score.ties++;
         }
         else if((computerMoveResult === 'rock' && playerMove === 'paper')||(computerMoveResult === 'scissors' && playerMove === 'rock')||(computerMoveResult === 'paper' && playerMove === 'scissors')){
-          result = 'you win';
+          result = 'You win';
           score.wins++;
         }
         else if((computerMoveResult === 'paper' && playerMove === 'rock')||(computerMoveResult === 'rock' && playerMove === 'scissors')||(computerMoveResult === 'scissors' && playerMove === 'paper')){
-          result = 'you lose';
+          result = 'You lose';
           score.losses++;
         }
         localStorage.setItem('score',JSON.stringify(score)); //into 
+
+        document.querySelector('.js-move')
+          .innerHTML = `Computer chose : ${computerMoveResult} --- You chose : ${playerMove}`; //didnt work as a function, scope of parameters ig ?
+        //showResult
+        document.querySelector('.js-result')
+          .innerHTML = `${result}`;
+        setPageScore();
         
-        alert(`Computer chose : ${computerMoveResult} \nResult : ${result} \nWins: ${score.wins} Losses: ${score.losses} Ties: ${score.ties} `);
+        /*alert(`Computer chose : ${computerMoveResult} \nResult : ${result} \nWins: ${score.wins} Losses: ${score.losses} Ties: ${score.ties} `);*/
       }
+      function setPageScore(){
+        document.querySelector('.js-score')
+          .innerHTML = `Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`; //apparently, scope of score isnt an issue here?
+      }
+      function resetScore(){
+        document.querySelector('.js-score')
+          .innerHTML = `Wins: ${0}, Losses: ${0}, Ties: ${0}`;
+      }
+      
+        
+      
     </script>
   </body>
 </html>
