@@ -1,11 +1,18 @@
-
+.body{
+  position: relative;
+}
 .background{
   font-family: Lakki Reddy;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   background-image: url("pictures/grid-bg-4.jpeg");
   background-position: bottom;
   background-size: auto;
   padding-top: 20px;
-  padding-bottom: 190px;
+  
 }
 
 .header{
