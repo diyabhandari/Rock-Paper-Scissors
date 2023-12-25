@@ -9,56 +9,59 @@
 <body>
   
   <div class = "background">
-    <div class = "header">
-      Rock Paper Scissors
-    </div>
-    <div class = "options">
-      <div class = "js-play rock-button play-button">
-        <p class = "js-rock"><img src = "pictures/rock-icon.jpeg" class = "play-icon" onclick="
-        let moveResult = decideMove();
-        play(moveResult,'rock');
-      "></p>
+    <div class = "content-container">
+      <div class = "header">
+        Rock Paper Scissors
       </div>
-      <div class = "js-play paper-button play-button">
-        <p class = "js-paper"><img src = "pictures/paper-icon.jpeg" class = "play-icon paper-icon" onclick="
-        moveResult = decideMove();
-        play(moveResult,'paper');
-      "></p>
+      <div class = "options">
+        <div class = "js-play rock-button play-button">
+          <p class = "js-rock"><img src = "pictures/rock-icon.jpeg" class = "play-icon" onclick="
+          let moveResult = decideMove();
+          play(moveResult,'rock');
+        "></p>
+        </div>
+        <div class = "js-play paper-button play-button">
+          <p class = "js-paper"><img src = "pictures/paper-icon.jpeg" class = "play-icon paper-icon" onclick="
+          moveResult = decideMove();
+          play(moveResult,'paper');
+        "></p>
+        </div>
+        <div class = "js-play scissors-button play-button">
+          <p class = "js-scissors"><img src = "pictures/scissors-icon.jpeg" class = "play-icon" onclick="
+          moveResult = decideMove();
+          play(moveResult,'scissors');
+        " ></p>
+        </div> 
       </div>
-      <div class = "js-play scissors-button play-button">
-        <p class = "js-scissors"><img src = "pictures/scissors-icon.jpeg" class = "play-icon" onclick="
-        moveResult = decideMove();
-        play(moveResult,'scissors');
-      " ></p>
+      <div class ="computer-choice">
+        <div class="computer-choice-text js-move"></div>
+        <div class="js-computer-image">
+          <p></p>
+        </div>
+      </div>
+      <div class = "result js-result"></div>
+      <div class = "scoreboard">
+        <div class="wins score js-score-wins">Wins : 0</div> 
+        <div class="losses score js-score-losses">Losses : 0</div>
+        <div class="ties score js-score-ties">Ties : 0</div>
+      </div>
+      <div class = "reset-button-container" onclick="
+      score = {
+        losses: 0,
+        wins: 0,
+        ties: 0
+      };
+      //we need to remove the scores from local storage too
+      localStorage.removeItem('score');
+      resetScore();
+      removeText();">
+        <button class = "reset-button">
+          Reset Score
+        </button>
       </div> 
     </div>
-    <div class ="computer-choice">
-      <div class="computer-choice-text js-move"></div>
-      <div class="js-computer-image">
-        <p></p>
-      </div>
     </div>
-    <div class = "result js-result"></div>
-    <div class = "scoreboard">
-      <div class="wins score js-score-wins">Wins : 0</div> 
-      <div class="losses score js-score-losses">Losses : 0</div>
-      <div class="ties score js-score-ties">Ties : 0</div>
-    </div>
-    <div class = "reset-button-container" onclick="
-    score = {
-      losses: 0,
-      wins: 0,
-      ties: 0
-    };
-    //we need to remove the scores from local storage too
-    localStorage.removeItem('score');
-    resetScore();
-    removeText();">
-      <button class = "reset-button">
-        Reset Score
-      </button>
-    </div> 
-  </div>
+    
   
   <script>
     let score = JSON.parse(localStorage.getItem('score')) || { //ANOTHER WAY OF ASSIGNING VALUES

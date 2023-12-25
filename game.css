@@ -12,9 +12,17 @@
   background-position: bottom;
   background-size: auto;
   padding-top: 20px;
-  
 }
-
+.content-container{
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 .header{
   background-color: white;
   width: fit-content;
@@ -120,11 +128,6 @@
 .reset-button:hover{
   filter: brightness(75%);
 }
-@media(max-width: 750px){
-  .background{
-    background-size: cover;
-    background-position: bottom;
-    background-repeat: no-repeat;
-  }
-}
+
+
 
