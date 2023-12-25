@@ -1,0 +1,115 @@
+
+.background{
+  font-family: Lakki Reddy;
+  background-image: url("pictures/grid-bg-4.jpeg");
+  background-size: auto;
+  padding-top: 20px;
+  padding-bottom: 190px;
+}
+
+.header{
+  background-color: white;
+  width: fit-content;
+  height: fit-content;
+  border-style: solid;
+  border-color: #560707;
+  font-size: 43px;
+  padding: 15px 30px;
+  border-radius: 30px;
+  color: #560707;
+  margin: auto; 
+  padding-bottom: 0px;
+}
+
+.options{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15px;
+  margin-bottom: 1px;
+}
+.play-button{
+  margin-left: 30px;
+}
+.rock-button{
+  margin-left: 0; /*for centering*/
+}
+.play-icon{
+  width: 180px;
+  border-radius: 190px;
+  border-color: #560707;
+  border-width: 3px;
+  border-style: solid;
+  height: 180px;
+}
+.result{
+  width: fit-content;
+  margin: auto;
+  font-size: 35px;
+}
+.computer-choice{
+  height: fit-content;
+  font-size: 30px;
+  width: fit-content;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+.comp-move{
+  margin-left: 15px;
+  width: 90px;
+  border-radius: 85px;
+  border-color: #560707;
+  border-width: 3px;
+  border-style: solid;
+  height: 90px;
+}
+/*classlist mei jane wali computer move classes here*/
+
+.scoreboard{
+  display: flex;
+  border-style: solid;
+  margin: auto;
+  width: fit-content;
+  font-size: 30px;
+  border-radius: 35px;
+  padding: 12px 30px;
+  padding-bottom: 0;
+  background-color: white;
+  color: #560707;
+  border-width: 3px;
+}
+.score{
+  margin-left: 20px;
+}
+.wins{
+  margin-left: 0;
+}
+
+.reset-button-container{
+  width: fit-content;
+  margin:auto;
+  margin-top: 25px;
+}
+.reset-button{
+  font-family: Lakki Reddy;
+  background-color: #560707;
+  color: white;
+  font-size: 25px;
+  padding: 14px 20px;
+  padding-bottom: 0;
+  border-radius: 40px
+}
+
+.play-icon:hover,
+.reset-button:hover{
+  cursor: pointer;
+  /*box-shadow: 3px 8px 50px #c4c2c2; */
+  filter: brightness(90%);
+  transition: 0.2s;
+}
+.reset-button:hover{
+  filter: brightness(75%);
+}
+

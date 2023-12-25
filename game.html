@@ -1,64 +1,75 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Rock Paper Scissors</title>
-  </head>
-  <body>
-    <p>Pick !</p>
-    <button onclick="
-      let moveResult = decideMove();
-      play(moveResult,'rock');
-    ">
-      Rock
-    </button>
-    <button onclick="
-      moveResult = decideMove();
-      play(moveResult,'paper');
-    ">
-      Paper
-    </button>
-    <button onclick="
-      moveResult = decideMove();
-      play(moveResult,'scissors');
-    ">
-      Scissors
-    </button>
-    <p class = "js-result"></p>
-    <p class = "js-move"></p>
-    <p class = "js-score" >Wins: 0, Losses: 0, Ties: 0</p>
-    <button  onclick = "
-      //this reset score only resets current page's score, it remains in local storage and when we refresh our old score comes back cuz it was stored
-      score = {
-        losses: 0,
-        wins: 0,
-        ties: 0
-      };
-      //we need to remove the scores from local storage too
-      localStorage.removeItem('score');
-      resetScore();
-    ">
-      Reset Score
-    </button>
-    
-    <script>
-
-      /*const score = { //OBJECT //global so that it remembers previous data
-        wins: 0,
-        losses: 0,
-        ties: 0
-      }*/
-      //default operator, if first comes null other is run
-      let score = JSON.parse(localStorage.getItem('score')) || { //ANOTHER WAY OF ASSIGNING VALUES
+<head>
+  <title>Rock Paper Scissors</title>
+  <link rel = "stylesheet" href = "game.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+  <div class = "background">
+    <div class = "header">
+      Rock Paper Scissors
+    </div>
+    <div class = "options">
+      <div class = "js-play rock-button play-button">
+        <p class = "js-rock"><img src = "pictures/rock-icon.jpeg" class = "play-icon" onclick="
+        let moveResult = decideMove();
+        play(moveResult,'rock');
+      "></p>
+      </div>
+      <div class = "js-play paper-button play-button">
+        <p class = "js-paper"><img src = "pictures/paper-icon.jpeg" class = "play-icon paper-icon" onclick="
+        moveResult = decideMove();
+        play(moveResult,'paper');
+      "></p>
+      </div>
+      <div class = "js-play scissors-button play-button">
+        <p class = "js-scissors"><img src = "pictures/scissors-icon.jpeg" class = "play-icon" onclick="
+        moveResult = decideMove();
+        play(moveResult,'scissors');
+      " ></p>
+      </div> 
+    </div>
+    <div class ="computer-choice">
+      <div class="computer-choice-text js-move"></div>
+      <div class="js-computer-image">
+        <p></p>
+      </div>
+    </div>
+    <div class = "result js-result"></div>
+    <div class = "scoreboard">
+      <div class="wins score js-score-wins">Wins : 0</div> 
+      <div class="losses score js-score-losses">Losses : 0</div>
+      <div class="ties score js-score-ties">Ties : 0</div>
+    </div>
+    <div class = "reset-button-container" onclick="
+    score = {
+      losses: 0,
+      wins: 0,
+      ties: 0
+    };
+    //we need to remove the scores from local storage too
+    localStorage.removeItem('score');
+    resetScore();
+    removeText();">
+      <button class = "reset-button">
+        Reset Score
+      </button>
+    </div> 
+  </div>
+  
+  <script>
+    let score = JSON.parse(localStorage.getItem('score')) || { //ANOTHER WAY OF ASSIGNING VALUES
         wins:0,
         losses:0,
         ties:0
       }; //its properties  are created from function play
-      /*if(!score){ //score null
-        score.wins=0;
-        score.losses=0;
-        score.ties=0;
-      } //default value for score, cuz if we try to get .wins from null itll give an error*/
-      let scoreElement = document.querySelector('.js-score');
+       //default value for score, cuz if we try to get .wins from null itll give an error*/
+      let scoreElementWins = document.querySelector('.js-score-wins');
+      let scoreElementLosses = document.querySelector('.js-score-losses');
+      let scoreElementTies = document.querySelector('.js-score-ties');
       function decideMove(){
         let computerMove ='unknown';
         const randomNum = Math.random(); 
@@ -76,39 +87,74 @@
       function play(computerMoveResult,playerMove){
         let result = 'unknown';
         if(computerMoveResult === playerMove){
-          result = 'Tie';
+          result = 'TIE';
           score.ties++;
         }
         else if((computerMoveResult === 'rock' && playerMove === 'paper')||(computerMoveResult === 'scissors' && playerMove === 'rock')||(computerMoveResult === 'paper' && playerMove === 'scissors')){
-          result = 'You win';
+          result = 'YOU WIN !';
           score.wins++;
         }
         else if((computerMoveResult === 'paper' && playerMove === 'rock')||(computerMoveResult === 'rock' && playerMove === 'scissors')||(computerMoveResult === 'scissors' && playerMove === 'paper')){
-          result = 'You lose';
+          result = 'YOU LOSE';
           score.losses++;
         }
         localStorage.setItem('score',JSON.stringify(score)); //into 
 
         document.querySelector('.js-move')
-          .innerHTML = `Computer chose : ${computerMoveResult} --- You chose : ${playerMove}`; //didnt work as a function, scope of parameters ig ?
+          .innerHTML = `Computer Chose : `; //didnt work as a function, scope of parameters ig ?
+        document.querySelector('.js-computer-image')
+          .innerHTML = `<img src ="pictures/${computerMoveResult}-icon.jpeg" class = "comp-move">`; //these only work for the outer class each time, why not for the class for the <p> that the image is in?
         //showResult
         document.querySelector('.js-result')
           .innerHTML = `${result}`;
-        setPageScore();
         
-        /*alert(`Computer chose : ${computerMoveResult} \nResult : ${result} \nWins: ${score.wins} Losses: ${score.losses} Ties: ${score.ties} `);*/
+        setPageScore();
       }
       function setPageScore(){
-        document.querySelector('.js-score')
-          .innerHTML = `Wins: ${score.wins}, Losses: ${score.losses}, Ties: ${score.ties}`; //apparently, scope of score isnt an issue here?
+        document.querySelector('.js-score-wins')
+          .innerHTML = `Wins: ${score.wins}`; //apparently, scope of score isnt an issue here?
+        document.querySelector('.js-score-losses')
+          .innerHTML = `Losses: ${score.losses}`;
+        document.querySelector('.js-score-ties')
+          .innerHTML = `Ties: ${score.ties}`;
       }
       function resetScore(){
-        document.querySelector('.js-score')
-          .innerHTML = `Wins: ${0}, Losses: ${0}, Ties: ${0}`;
-      }
-      
+        document.querySelector('.js-score-wins')
+          .innerHTML = `Wins: ${0}`;
+        document.querySelector('.js-score-losses')
+          .innerHTML = `Losses: ${0}`;
+        document.querySelector('.js-score-ties')
+          .innerHTML = `Ties: ${0}`;
         
-      
-    </script>
-  </body>
-</html>
+      }
+      function removeText(){
+        document.querySelector('.js-move')
+          .innerHTML = ``;
+        document.querySelector('.js-result')
+          .innerHTML = ``;
+        document.querySelector('.js-computer-image')
+          .innerHTML = ``;
+      }
+      /*function showClicked(userMove){
+        if(userMove === 'rock')
+          document.querySelector('.rock-button')
+            .innerHTML = `<img src ="pictures/${userMove}-icon-red.jpeg" class = "play-icon">`;
+        else if(userMove === 'paper')
+          document.querySelector('.paper-button')
+            .innerHTML = `<img src ="pictures/${userMove}-icon-red.jpeg" class = "play-icon">`;
+        else{
+          document.querySelector('.scissors-button')
+            .innerHTML = `<img src ="pictures/${userMove}-icon-red.jpeg" class = "play-icon">`;
+        }
+      }
+      function resetClick(){
+        document.querySelector('.rock-button')
+          .innerHTML = `<img src ="pictures/rock-icon.jpeg" class = "play-icon">`;
+        document.querySelector('.paper-button')
+          .innerHTML = `<img src ="pictures/paper-icon.jpeg" class = "play-icon">`;
+        document.querySelector('.scissors-button')
+          .innerHTML = `<img src ="pictures/scissors-icon.jpeg" class = "play-icon">`;
+      }
+      TRY PUTTING SHOWCLICKED IN THE ONCLICK PROPERTIES OF EACH BUTTON, AND RESET CLICK BEFORE IT, IF IT DOESNT WORK PUT ALL OF THOSE ICONS IN HTML IMG IN <p> FIRST*/
+  </script>
+</body>
